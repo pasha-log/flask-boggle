@@ -1,0 +1,49 @@
+#boggle { 
+    text-align: center; 
+}
+
+.board {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table td{
+    border:1px solid black;
+}
+
+td {
+    height: 10vh;
+    width: 10vh;
+    border-radius: 10px;
+}
+
+#highscore {
+    position: absolute;
+    right: 0;
+    top: 50px;
+    left: 650px;
+}
+
+#score {
+    position: absolute;
+    right: 0;
+    top: 50px;
+    left: -650px;
+}
+
+.words {
+    position: absolute;
+    right: 0;
+    top: 150px;
+    left: -650px;
+}
+
+#playagain {
+    position: relative;
+    top: 10px; 
+}
+
+.msg {
+    position: relative; 
+    top: -10px;
+}
