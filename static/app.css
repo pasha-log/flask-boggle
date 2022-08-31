@@ -7,28 +7,35 @@
     margin-right: auto;
 }
 
-table td{
-    border:1px solid black;
+table td {
+    border:1px solid white;
 }
 
 td {
     height: 10vh;
     width: 10vh;
     border-radius: 10px;
+    background-color: #ffb347; 
 }
 
 #highscore {
     position: absolute;
     right: 0;
     top: 50px;
-    left: 650px;
+    left: 725px;
+    border-radius: 10px; 
+    border:5px solid white;
+    width: 190px
 }
 
-#score {
+#current-score {
     position: absolute;
     right: 0;
     top: 50px;
-    left: -650px;
+    left: 100px;
+    border-radius: 10px; 
+    border:5px solid white;
+    width: 190px
 }
 
 .words {
@@ -38,7 +45,7 @@ td {
     left: -650px;
 }
 
-#playagain {
+#play-again {
     position: relative;
     top: 10px; 
 }
@@ -46,4 +53,21 @@ td {
 .msg {
     position: relative; 
     top: -10px;
+}
+
+body {
+    background-color: #007FFF;
+    color: white;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.game-buttons {
+    transition-duration: 0.4s;
+    background-color: white; 
+    border-radius: 10px;
+}
+
+.game-buttons:hover {
+    background-color: #ffb347; 
+    color: white;
 }

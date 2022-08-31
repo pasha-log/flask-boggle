@@ -1,9 +1,10 @@
 from boggle import Boggle 
 from flask import Flask, request, render_template, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
+import os
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "totally_secret"
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", 'asjdhashdj')
 app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = False
 debug = DebugToolbarExtension(app)
 
@@ -15,9 +16,9 @@ def main_page():
     board = boggle_game.make_board() 
     session['board'] = board
     highscore = session.get("highscore", 0)
-    nplays = session.get("nplays", 0)
+    number_of_plays = session.get("number_of_plays", 0)
 
-    return render_template('index.html', board=board, highscore=highscore, nplays=nplays)
+    return render_template('index.html', board=board, highscore=highscore, number_of_plays=number_of_plays)
 
 @app.route('/check-word') 
 def check_word(): 
@@ -30,13 +31,13 @@ def check_word():
 
 @app.route("/post-score", methods=["POST"])
 def post_score():
-    """Receive score, update nplays, update high score if appropriate."""
+    """Receive score, update number_of_plays, update high score if appropriate."""
 
     score = request.json["score"]
     highscore = session.get("highscore", 0)
-    nplays = session.get("nplays", 0)
+    number_of_plays = session.get("number_of_plays", 0)
 
-    session['nplays'] = nplays + 1
+    session['number_of_plays'] = number_of_plays + 1
     session['highscore'] = max(score, highscore)
 
     return jsonify(brokeRecord=score > highscore)

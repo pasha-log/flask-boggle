@@ -1,18 +1,18 @@
 class BoggleGame {
     /* make a new game at this DOM id */
   
-    constructor(boardId, secs = 60) {
-      this.secs = secs; // game length
+    constructor(boardId, seconds = 60) {
+      this.seconds = seconds; // game length
       this.showTimer();
   
       this.score = 0;
       this.words = new Set();
       this.board = $("#" + boardId);
   
-      // every 1000 msec, "tick"
-      this.timer = setInterval(this.tick.bind(this), 1000);
+      // every 1000 msec, "countDown"
+      this.timer = setInterval(this.countDown.bind(this), 1000);
   
-      $(".addword", this.board).on("submit", this.handleSubmit.bind(this));
+      $(".add-word", this.board).on("submit", this.handleSubmit.bind(this));
     }
   
     /* show word in list of words */
@@ -30,10 +30,8 @@ class BoggleGame {
     /* show a status message */
   
     showMessage(msg, cls) {
-      $(".msg", this.board)
-        .text(msg)
-        .removeClass()
-        .addClass(`msg ${cls}`);
+      let $messageElement = $(".msg", this.board)
+      $messageElement.text(msg).removeClass().addClass(`msg ${cls}`);
     }
     
     /* handle submission of word: if unique and valid, score & show */
@@ -41,8 +39,9 @@ class BoggleGame {
     async handleSubmit(evt) {
       evt.preventDefault();
       const $word = $(".word", this.board);
-  
+      
       let word = $word.val();
+      word = word.toLowerCase()
       if (!word) return;
   
       if (this.words.has(word)) {
@@ -70,35 +69,39 @@ class BoggleGame {
     /* Update timer in DOM */
   
     showTimer() {
-      $(".timer", this.board).text(this.secs);
+      $(".timer", this.board).text(this.seconds);
     }
   
     /* Tick: handle a second passing in game */
   
-    async tick() {
-      this.secs -= 1;
+    async countDown() {
+      this.seconds -= 1;
       this.showTimer();
   
-      if (this.secs === 0) {
+      if (this.seconds === 0) {
         clearInterval(this.timer);
-        await this.scoreGame();
+        this.scoreGame();
       }
     }
   
     /* end of game: score and update message. */
   
     async scoreGame() {
-      $(".addword", this.board).hide(); 
+      $(".add-word", this.board).hide();
+      try { 
       const resp = await axios.post("/post-score", { score: this.score });
       if (resp.data.brokeRecord) {
         this.showMessage(`New record: ${this.score}`, "ok");
       } else {
         this.showMessage(`Final score: ${this.score}`, "ok");
       }
+      } catch {
+        this.showMessage('Scoring Error Has Occured', "err")
+      }
     } 
   }
 
-const $playAgainBtn = $("#playagain")
+const $playAgainBtn = $("#play-again")
 $($playAgainBtn).on('click', function(){
     window.location.reload()
   })
