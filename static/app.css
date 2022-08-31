@@ -19,10 +19,11 @@ td {
 }
 
 #highscore {
-    position: fixed;
+    position: absolute;
     right: 0;
     top: 50px;
-    left: 725px;
+    /* left: 725px; */
+    left: 600px;
     border-radius: 10px; 
     border:5px solid white;
     width: 190px
