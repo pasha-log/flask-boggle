@@ -1,6 +1,6 @@
 # Flask Boggle! 
 
-<img src='screenshot-boggle.png' alt='Connect Four Gif' height='350' width='500'>
+<img src='screenshot-boggle.png' alt='' height='350' width='500'>
 
 ## Description: 
 
